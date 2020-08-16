@@ -14,7 +14,7 @@ See [CloudFront](https://aws.amazon.com/cloudfront/) and [Signed URL](https://do
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = 'github.com/moonhappy'
   s.source           = { :git => 'https://github.com/moonhappy/CloudFrontSignedURL.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'CloudFrontSignedURL/Classes/**/*'
   s.frameworks = 'Security'

@@ -62,11 +62,11 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CC94F97BC8FCA61E39A7118 /* Pods-CloudFrontSignedURL_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudFrontSignedURL_Tests.debug.xcconfig"; path = "Target Support Files/Pods-CloudFrontSignedURL_Tests/Pods-CloudFrontSignedURL_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B5F6528F41BACDE793B97AE8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		B5F6528F41BACDE793B97AE8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CEF30EEA4E091A624FA9DB18 /* Pods_CloudFrontSignedURL_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudFrontSignedURL_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9DB951CFEC846C649E01DF6 /* Pods-CloudFrontSignedURL_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudFrontSignedURL_Example.release.xcconfig"; path = "Target Support Files/Pods-CloudFrontSignedURL_Example/Pods-CloudFrontSignedURL_Example.release.xcconfig"; sourceTree = "<group>"; };
-		F34E0BB196B493165FFA7BF7 /* CloudFrontSignedURL.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = CloudFrontSignedURL.podspec; path = ../CloudFrontSignedURL.podspec; sourceTree = "<group>"; };
-		F809C839064481DD29D75CDB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F34E0BB196B493165FFA7BF7 /* CloudFrontSignedURL.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = CloudFrontSignedURL.podspec; path = ../CloudFrontSignedURL.podspec; sourceTree = "<group>"; };
+		F809C839064481DD29D75CDB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,7 +193,6 @@
 				7CC94F97BC8FCA61E39A7118 /* Pods-CloudFrontSignedURL_Tests.debug.xcconfig */,
 				16DA3EBFFC379205F9ED9B41 /* Pods-CloudFrontSignedURL_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -258,6 +257,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -449,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -482,7 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
