@@ -28,7 +28,7 @@
     if (!url) {
         return nil;
     }
-    return [NSString stringWithFormat:CFSURL_CANNED_POLICY, url.absoluteString, (NSUInteger)expire];
+    return [NSString stringWithFormat:CFSURL_CANNED_POLICY, url.absoluteString, (unsigned long)expire];
 }
 
 - (SecKeyRef)secKeyRefForRSAPrivateKeyDER:(NSData *)key {
@@ -96,7 +96,7 @@
         return nil;
     }
     // 3. Create the URL
-    NSString *signedURLPath = [NSString stringWithFormat:CFSURL_URL_FORMAT, self.absoluteString, (NSUInteger)expireEpoch, signatureBase64, akey];
+    NSString *signedURLPath = [NSString stringWithFormat:CFSURL_URL_FORMAT, self.absoluteString, (unsigned long)expireEpoch, signatureBase64, akey];
     return [NSURL URLWithString:signedURLPath];
 }
 
