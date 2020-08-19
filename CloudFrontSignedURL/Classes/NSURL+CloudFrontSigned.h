@@ -15,6 +15,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 
@@ -23,18 +24,17 @@
 // - CF Canned Policy Signed URL doc: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-creating-signed-url-canned-policy.html
 // - CF Custom Policy Signed URL doc: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-creating-signed-url-custom-policy.html
 
-/** Helper to generate AWS CloudFront Signed URL. */
-@interface CloudFrontSignedURL : NSObject
+/** Extension of NSURL to generate AWS CloudFront Signed URL. */
+@interface NSURL (CloudFrontSigned)
 /**
- Creates an AWS CloudFront Signed URL using the Canned Policy technique.
- @param resource The URL to the AWS CloudFront resource. This can also be Route53 domain if the appropriate CNAME and routing is configured accordingly.
+ Create an AWS CloudFront Signed URL using the Canned Policy technique.
  @param akey The AWS CloudFront account key (generated during the AWS CloudFront key-pair generation).
- @param privatePEMkey The private RSA PEM key of the AWS CloudFront private key (generated during the AWS CloudFront key-pair generation).
+ @param privateDERkey The private RSA key, in DER form, of the AWS CloudFront private key (generated during the AWS CloudFront key-pair generation).
  @param expires The date-time when the URL will expire (i.e. date-time the URL will cease to work).
  @return URL of the generated AWS CloudFront Signed URL, or nil if an error occurred.
 */
-+ (NSURL * _Nullable)signedCannedPolicyURLForURL:(NSURL * _Nonnull)resource
-                                       accessKey:(NSString * _Nonnull)akey
-                                      privateKey:(NSString * _Nonnull)privatePEMkey
-                                  expirationTime:(NSDate * _Nonnull)expires;
+- (NSURL * _Nullable)cloudFrontSignedCannedPolicyURLForAccessKey:(NSString * _Nonnull)akey
+                                                      privateKey:(NSData * _Nonnull)privateDERkey
+                                                      expiration:(NSDate * _Nonnull)expires;
 @end
+

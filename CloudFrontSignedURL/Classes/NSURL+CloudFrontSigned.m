@@ -15,23 +15,34 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "CloudFrontSignedURL.h"
+#import "NSURL+CloudFrontSigned.h"
 
-#define CFSURL_CANNED_POLICY            @"{\"Statement\":[{\"Resource\":%@, \"Condition\":{\"DateLessThan\":{\"AWS:EpochTime\":%ld}}}]}"
+#define CFSURL_CANNED_POLICY            @"{\"Statement\":[{\"Resource\":\"%@\",\"Condition\":{\"DateLessThan\":{\"AWS:EpochTime\":%ld}}}]}"
 #define CFSURL_URL_FORMAT               @"%@?Expires=%ld&Signature=%@&Key-Pair-Id=%@"
 
-@implementation CloudFrontSignedURL
+@implementation NSURL (CloudFrontSigned)
 
 #pragma mark - Private Methods
 
-+ (NSString *)cannedPolicyForURL:(NSURL *)url expiration:(NSTimeInterval)expire {
+- (NSString *)cannedPolicyForURL:(NSURL *)url expiration:(NSTimeInterval)expire {
     if (!url) {
         return nil;
     }
     return [NSString stringWithFormat:CFSURL_CANNED_POLICY, url.absoluteString, (NSUInteger)expire];
 }
 
-+ (NSData *)rsaSignCannedPolicy:(NSString *)policy key:(SecKeyRef)privateKey {
+- (SecKeyRef)secKeyRefForRSAPrivateKeyDER:(NSData *)key {
+    if (!key) {
+        return nil;
+    }
+    // Convert to SecKeyRef.
+    NSDictionary *keyOptions = @{((__bridge NSString*)kSecAttrKeyType):((__bridge NSString*)kSecAttrKeyTypeRSA),
+                                 ((__bridge NSString*)kSecAttrKeyClass):((__bridge NSString*)kSecAttrKeyClassPrivate)};
+    SecKeyRef skr = SecKeyCreateWithData(((__bridge CFDataRef)key), ((__bridge CFDictionaryRef)keyOptions), nil);
+    return skr;
+}
+
+- (NSData *)rsaSignCannedPolicy:(NSString *)policy key:(SecKeyRef)privateKey {
     if (!privateKey || !policy) {
         return nil;
     }
@@ -52,7 +63,7 @@
     return signature;
 }
 
-+ (NSString *)awsBase64EscapedForSignature:(NSData *)signature {
+- (NSString *)awsBase64EscapedForSignature:(NSData *)signature {
     if (!signature) {
         return nil;
     }
@@ -68,46 +79,24 @@
 
 #pragma mark - Public Methods
 
-+ (SecKeyRef)secKeyRefForRSAPrivateKeyPEM:(NSString *)key {
-    if (!key || ![key containsString:@"-----BEGIN RSA PRIVATE KEY-----"]) {
-        return nil;
-    }
-    // Extract the base64 encoding of the key.
-    NSArray<NSString *> *keyComponents = [key componentsSeparatedByString:@"-----"];
-    if (!keyComponents || keyComponents.count != 5) {
-        return nil;
-    }
-    NSString *keyBase64 = [[keyComponents objectAtIndex:2] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSData *binaryKey = [[NSData alloc] initWithBase64EncodedString:keyBase64 options:0];
-    if (!binaryKey) {
-        return nil;
-    }
-    // Convert to SecKeyRef.
-    NSDictionary *keyOptions = @{((__bridge NSString*)kSecAttrKeyType):((__bridge NSString*)kSecAttrKeyTypeRSA),
-                                 ((__bridge NSString*)kSecAttrKeyClass):((__bridge NSString*)kSecAttrKeyClassPrivate)};
-    SecKeyRef skr = SecKeyCreateWithData(((__bridge CFDataRef)binaryKey), ((__bridge CFDictionaryRef)keyOptions), nil);
-    return skr;
-}
-
-+ (NSURL *)signedCannedPolicyURLForURL:(NSURL *)resource
-                             accessKey:(NSString *)akey
-                            privateKey:(NSString *)privatePEMkey
-                        expirationTime:(NSDate *)expires {
-    if (!resource || [resource isFileURL] || !akey || !expires || !privatePEMkey) {
+- (NSURL *)cloudFrontSignedCannedPolicyURLForAccessKey:(NSString *)akey
+                                            privateKey:(NSData *)privateDERkey
+                                            expiration:(NSDate *)expires {
+    if ([self isFileURL] || !akey || !expires || !privateDERkey) {
         return nil;
     }
     // 1. Generate the access policy
     NSTimeInterval expireEpoch = [expires timeIntervalSince1970];
-    NSString *policy = [CloudFrontSignedURL cannedPolicyForURL:resource expiration:expireEpoch];
+    NSString *policy = [self cannedPolicyForURL:self expiration:expireEpoch];
     // 2. Sign the policy
-    SecKeyRef pkey = [CloudFrontSignedURL secKeyRefForRSAPrivateKeyPEM:privatePEMkey];
-    NSData *signature = [CloudFrontSignedURL rsaSignCannedPolicy:policy key:pkey];
-    NSString *signatureBase64 = [CloudFrontSignedURL awsBase64EscapedForSignature:signature];
+    SecKeyRef pkey = [self secKeyRefForRSAPrivateKeyDER:privateDERkey];
+    NSData *signature = [self rsaSignCannedPolicy:policy key:pkey];
+    NSString *signatureBase64 = [self awsBase64EscapedForSignature:signature];
     if (!signatureBase64) {
         return nil;
     }
     // 3. Create the URL
-    NSString *signedURLPath = [NSString stringWithFormat:CFSURL_URL_FORMAT, resource.absoluteString, (NSUInteger)expireEpoch, signatureBase64, akey];
+    NSString *signedURLPath = [NSString stringWithFormat:CFSURL_URL_FORMAT, self.absoluteString, (NSUInteger)expireEpoch, signatureBase64, akey];
     return [NSURL URLWithString:signedURLPath];
 }
 

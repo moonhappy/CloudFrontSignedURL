@@ -24,6 +24,7 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		CDED934816025B946FA762BB /* Pods_CloudFrontSignedURL_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C326A67D8563E4E407F139 /* Pods_CloudFrontSignedURL_Tests.framework */; };
+		D95DEBD124ED66190047DC39 /* private.der in Resources */ = {isa = PBXBuildFile; fileRef = D95DEBD024ED66190047DC39 /* private.der */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5F6528F41BACDE793B97AE8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CEF30EEA4E091A624FA9DB18 /* Pods_CloudFrontSignedURL_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudFrontSignedURL_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D95DEBD024ED66190047DC39 /* private.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = private.der; sourceTree = "<group>"; };
 		D9DB951CFEC846C649E01DF6 /* Pods-CloudFrontSignedURL_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudFrontSignedURL_Example.release.xcconfig"; path = "Target Support Files/Pods-CloudFrontSignedURL_Example/Pods-CloudFrontSignedURL_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F34E0BB196B493165FFA7BF7 /* CloudFrontSignedURL.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = CloudFrontSignedURL.podspec; path = ../CloudFrontSignedURL.podspec; sourceTree = "<group>"; };
 		F809C839064481DD29D75CDB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		6003F593195388D20070C39A /* Example for CloudFrontSignedURL */ = {
 			isa = PBXGroup;
 			children = (
+				D95DEBD024ED66190047DC39 /* private.der */,
 				6003F59C195388D20070C39A /* CFAppDelegate.h */,
 				6003F59D195388D20070C39A /* CFAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -281,6 +284,7 @@
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				D95DEBD124ED66190047DC39 /* private.der in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
